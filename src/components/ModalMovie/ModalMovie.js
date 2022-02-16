@@ -1,4 +1,7 @@
 
+import { Button, ButtonToolbar, Modal } from 'react-bootstrap';
+import {useState,useEffect} from "react";
+
 function ModalMovie(props) {
     const [show, setShow] = useState(false);
 

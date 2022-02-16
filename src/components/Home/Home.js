@@ -1,20 +1,27 @@
 import {useState,useEffect} from "react";
 import MovieList from "../MovieList/MovieList"
+import axios from "axios";
+
 export default function Home(){
     const {trending, setTrending} = useState([]);
-  async function getTrending(){
-    let res = await fetch(`${process.env.REACT_APP_SERVER}/trending`)
-    let trendingData = await res.json();
-    setTrending(trendingData);
-    }
+    const fetchData = async () => {
+        const response = await axios.get(
+          `${process.env.REACT_APP_SERVER}/trending`,{
+            headers: {"Access-Control-Allow-Origin": "*",'Content-Type': 'application/json','X-Requested-With': 'XMLHttpRequest'} 
+          }
+          
+        );
+    console.log(response.data);
+        setTrending(response.data);
+      };
+ 
     useEffect(()=>{
-        getTrending();
-
+        fetchData();
     },[])
     return (
         <>
         <h1>Home Page</h1>
-       <MovieList movie={trending}/>
+       {/* <MovieList movie={trending}/> */}
         </>
     )
 }
